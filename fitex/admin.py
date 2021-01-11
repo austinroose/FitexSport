@@ -1,11 +1,6 @@
 from django.contrib import admin
-from .models import Todo
+from .models import Todo, Profile, EventRegistration, VerificationKey, TrainingGroup, Post
 
 
-class TodoAdmin(admin.ModelAdmin):
-    list_display = ('title', 'description', 'completed')
-
-
-# Register your models here.
-admin.site.register(Todo, TodoAdmin)
-# Register your models here.
+myModels = [Post, Profile, EventRegistration, VerificationKey, TrainingGroup, Todo]
+admin.site.register(myModels)

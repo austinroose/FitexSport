@@ -14,16 +14,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include, re_path                   # add this
-from rest_framework import routers                      # add this
-from fitex import views
+from django.urls import path, include, re_path
 from django.views.generic import TemplateView
-
-router = routers.DefaultRouter()                        # add this
-router.register(r'todos', views.TodoView, 'todo')
+from .views import GoogleLoginView, FacebookLoginView
+import fitex
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/', include('fitex.urls')),
+    path('rest-auth/', include('rest_auth.urls')),
+    path('rest-auth/registration/', include('rest_auth.registration.urls')),
+    path('accounts/', include('allauth.urls')),
+    path('rest-auth/google/', GoogleLoginView.as_view(), name='google_login'),
+    path('rest-auth/facebook/', FacebookLoginView.as_view(), name='facebook_login'),
     re_path('.*', TemplateView.as_view(template_name='index.html')),
 ]
