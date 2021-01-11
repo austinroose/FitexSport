@@ -1,0 +1,280 @@
+.athleteRegisterFormItem {
+    border-radius: 10px;
+}
+
+.athleteRegisterForm {
+    margin-top: 10px;
+}
+
+.homeSearch {
+    position: absolute;
+
+}
+
+.filterContainer {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    border: white solid 5px;
+    border-radius: 30px;
+    padding-right: 4px;
+    box-shadow: 2px 4px 15px #808080;
+}
+
+.homeSelect {
+    width: 150px;
+}
+
+.homeSearchButton {
+    width: 41px;
+    height: 41px;
+    background-color: #1690ff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+}
+
+.searchButtonContainer {
+    height: 41px;
+    padding-top: 0px;
+    color: transparent;
+    background-color: transparent;
+    border-color: transparent;
+    cursor: default;
+}
+
+.searchText {
+    display: none;
+}
+
+.searchFilterBarContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: -60px;
+}
+
+.searchFilterBar {
+    width: fit-content;
+    height: 45px;
+    border-radius: 22px;
+    padding: 7px;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 2px 4px 15px #808080;
+}
+
+.searchBarLine {
+    width: 1px;
+    background-color: lightgrey;
+    margin-left: 7px;
+    margin-right: 7px;
+    height: 20px;
+}
+
+.mainPageSearchContainer {
+    width: 100%;
+    height: 100%;
+}
+
+.filterSearchButton {
+    width: 120px;
+    margin-top: 16px;
+}
+
+.createFormInput {
+    width: 550px;
+}
+
+.trainingGroupCard {
+    width: 500px
+}
+
+/*Training group banner */
+
+.trainingGroupBannerImage {
+    width: 100%;
+    padding: 6px;
+    height: 330px;
+    background-color: white;
+    border-radius: 40px 40px 0px 0px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.trainingGroupBannerName {
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.trainingGroupBannerSport {
+    margin-left: 15px;
+    margin-bottom: 7px;
+}
+
+.groupChangeCoverPhoto {
+    width: 200px;
+    margin-bottom: 5px;
+}
+
+.trainingGroupBannerNameAndSportContainer {
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+    padding-left: 25px;
+    margin-bottom: 5px;
+    background-color: white;
+    border-radius: 0px 0px 30px 30px;
+}
+
+.trainingGroupBannerLocation {
+    display: flex;
+    align-items: row;
+}
+
+.trainingGroupBannerCoachName {
+    margin-top: 5px;
+    display: flex;
+    align-items: row;
+}
+
+/*Training group banner */
+
+/* Training group request container for coach */
+.trainingGroupRequestsBox {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.requestSectionCollapseContainer {
+    width: auto;
+    height: auto;
+    display: absolute;
+    margin-bottom: 10px;
+}
+
+.requestSectionCollapse {
+    position: relative;
+    top: 20px;
+}
+
+.userRequestCard {
+    height: 310px;
+    width: 230px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.userRequestCardContainer {
+    margin-left: 10px;
+    margin-top: 3px;
+}
+
+/* Training group request container for coach */
+
+/* Group members list container */
+
+.groupMembersListContainer {
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    overflow: auto;
+    padding: 8px 24px;
+    height: 200px
+
+}
+
+.groupMembersListLoading {
+    position: absolute;
+    bottom: 40px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Group members list container */
+
+
+@media only screen and (max-width: 550px) {
+    .filterContainer {
+        margin: 9px;
+        padding: 12px;
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .homeSelect {
+        width: 100%;
+        border-bottom: lightgrey solid 1px;
+    }
+
+    .homeSearchButton{
+        width: 100%;
+        justify-content: center;
+        border-radius: 20px;
+        margin-top: 7px;
+    }
+
+    .searchText {
+        display: inline;
+        margin-left: 2px;
+        color: white;
+        font-size: 18px;
+    }
+
+    .filterSearchButton {
+        width: 100%;
+    }
+
+    .createFormInput {
+        width: 100%;
+    }
+
+    .trainingGroupCard {
+        width: 100%
+    }
+
+    .userRequestCardContainer {
+        margin-top: 10px;
+        margin-left: 0px;
+    }
+
+    .trainingGroupBannerNameAndSportContainer {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .groupChangeCoverPhoto {
+        width: 200px;
+        margin-left: 5px;
+    }
+
+    .trainingGroupBannerImage {
+        width: 100%;
+        padding: 6px;
+        height: 200px;
+        background-color: white;
+    }
+    .trainingGroupBannerName {
+        font-size: 25px;
+    }
+
+    .trainingDetailButton {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 1300px) {
+    .searchFilterBarContainer {
+        margin-top: 0px
+    }
+}

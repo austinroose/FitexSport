@@ -1,0 +1,347 @@
+.SearchField {
+    border-radius: 20px;
+    padding: 3px;
+    padding-left: 4px;
+    width: 200px;
+}
+
+.mainMenu {
+    color: lightgreen;
+}
+
+.layout {
+    background-color: lightgreen;
+}
+
+.detailedInfo {
+    color: black
+}
+
+.detailedInfo:hover {
+    color: #1690ff
+}
+
+.infoTag {
+    border-radius: 10px;
+}
+
+.sportInfo {
+    background-color: lightgrey;
+    padding: 4px;
+    border-radius: 13px;
+    margin-right: 4px;
+    vertical-align: baseline;
+}
+
+.sportInfo1 {
+    background-color: lightgrey;
+    padding: 4px;
+    border-radius: 13px;
+    margin-right: 4px;
+    vertical-align: baseline;
+}
+
+@media only screen and (max-width: 600px) {
+    .detailedInfo:hover {
+        color: black;
+    }
+
+    .detailedInfo {
+        display: none
+    }
+}
+
+.Trainingdetail {
+    border-radius: 10px;
+}
+
+.trainingCard {
+    margin-top: 13px;
+}
+
+contentLayout {
+    display: flex;
+    flex-direction: column;
+}
+
+.homePage {
+    background-image: src="https://images.theconversation.com/files/303322/original/file-20191124-74557-16zkcnl.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=496&fit=clip"
+}
+
+.homeTitle {
+    font-size: 100px;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+    width: 100px;
+    line-height: normal;
+    padding-top: 300px;
+    padding-left: 20px;
+}
+
+.homeContainer {
+    position: relative;
+    width: 100%;
+    height: 700px;
+}
+
+.homeSearchBar {
+    position: absolute;
+    width: 100%;
+    height: 100px;
+    margin-top: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.homeSearch {
+    position: absolute;
+
+}
+
+.loginForm {
+    display: flex;
+    height: auto;
+    width: auto;
+    padding: 30px;
+    padding-bottom: 20px;
+    border-radius: 30px;
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.loginPage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 600px;
+}
+
+.loginLogo {
+    width: 90px;
+    height: 90px;
+    margin-bottom:10px;
+}
+
+.loginInput {
+    width: 270px;
+}
+
+.controlPanelCard {
+    width: 300px;
+}
+
+.groupCreateForm {
+    display: inline-block
+}
+
+.joinWithGroupContainer {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* TrainingGroup */
+.trainingGroupPage {
+    padding-left: 15%;
+    padding-right: 15%;
+}
+/* TrainingGroup */
+
+/* TrainingGroup Nav layout*/
+
+.groupNav {
+    width: 100%;
+    display: block;
+    position: relative;
+}
+
+.groupNavHamburgerMenu {
+    display: none;
+}
+
+.groupNavExtraContainer {
+    display: inline-block;
+}
+
+
+/* Admin user list card item layout*/
+.adminUserCard  {
+    width: 500px;
+}
+
+.adminPanelButton.two {
+    margin-left: 10px;
+}
+
+.adminPanelSearch {
+    width: 200px;
+}
+/* Admin user list card item layout*/
+
+
+/* TrainingGroup Nav layout*/
+
+.privacyPolicyPage {
+    padding: 10px 50px;
+}
+
+.footerSection1 {
+    display: flex;
+    flex-direction: row;
+}
+
+.privacyLabel {
+    margin-left: 20px;
+}
+
+.userGroupsPage {
+    margin-right: 15%;
+    margin-left: 15%;
+}
+
+/* SignupOptions page, email, facebook, google */
+
+.signupOptionsPage {
+    width: 100%;
+    height: 700px;
+    display: flex;
+    justify-content: center;
+}
+
+.signupOptionsContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: 300px;
+    height: 300px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    margin-top: 20px;
+}
+
+.signupButton {
+    width: 150px;
+    margin-bottom: 15px;
+    border-radius: 15px;
+}
+
+.signupTitle {
+    margin-bottom: 28px;
+    font-size: 25px;
+}
+
+.coachInfoPage {
+    width: 100%;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.coachInfoContainer {
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+@media only screen and (max-width: 500px) {
+
+    .groupCreateForm {
+        width: 100%;
+    }
+
+    .controlPanelCard {
+        width: 100%;
+    }
+
+    .homeTitle {
+        font-size: 50px;
+    }
+
+    .trainingGroupPage {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .groupNavHamburgerMenu {
+        display: inline-block;
+        position: relative;
+        right: 0;
+    }
+
+    .adminUserCard  {
+        width: 100%;
+    }
+
+    .adminPanelButton {
+        width: 100%;
+        margin-top:10px;
+    }
+
+    .adminPanelButton.two {
+        margin-left: 0px;
+    }
+
+    .loginForm {
+        width: 90%;
+        padding: 0;
+        padding-left: 4px;
+        padding-right: 4px;
+        padding-bottom:20px;
+    }
+
+    .loginInput {
+        width: 200px;
+    }
+
+    .privacyPolicyPage {
+        padding: 10px 10px;
+    }
+
+    .footerSection1 {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .privacyLabel {
+        margin-left: 0px;
+    }
+
+    .userGroupsPage {
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    .signupOptionsContainer {
+        width: 90%;
+        height: 300px;
+    }
+
+}
+
+@media only screen and (max-width: 600px) {
+  .groupNav .groupNavItem {display: none}
+
+    .groupNavExtraContainer.active {
+        position: absolute;
+        width: 200px;
+        height: auto;
+        background-color: blue;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .groupNavExtraContainer.active .groupNavItem {
+        display: inline;
+    }
+
+}
