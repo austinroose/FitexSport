@@ -209,19 +209,6 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-DEFAULT_RENDERER_CLASSES = (
-    'rest_framework.renderers.JSONRenderer',
-)
-
-if DEBUG:
-    DEFAULT_RENDERER_CLASSES = DEFAULT_RENDERER_CLASSES + (
-        'rest_framework.renderers.BrowsableAPIRenderer',
-    )
-
-REST_FRAMEWORK = {
-    'DEFAULT_RENDERER_CLASSES': DEFAULT_RENDERER_CLASSES
-}
-
 django_heroku.settings(locals())
 
 options = DATABASES['default'].get('OPTIONS', {})
