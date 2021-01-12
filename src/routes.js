@@ -52,8 +52,8 @@ const BaseRouter = () => (
         <Route exact path='/create/groups' component={TrainingGroupCreate}/>
         <Route exact path='/coach/mygroups' component={CoachTrainingGroups}/>
         <Route path='/groups/:groupID' component={TrainingGroup}/>
-        <Route exact path='/admin/login/1234' component={AdminPageLogin}/>
-        <Route exact path='/admin/control/1234' component={AdminPage} />
+        <Route exact path='/admin_login/1234' component={AdminPageLogin}/>
+        <Route exact path='/admin_control/1234' component={AdminPage} />
         <Route exact path='/privacy-policy/' component={PrivacyPolicy} />
         <Route exact path='/terms/' component={TermsAndConditions} />
         <Route exact path='/user-data-deletion/' component={DataDeletionInstructions} />

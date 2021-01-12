@@ -34,7 +34,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY_FITEX')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['fitexsport1.herokuapp.com', '127.0.0.1:8000', 'localhost']
+HEROKU_HOSTING_URL = os.environ.get('HEROKU_HOSTING_URL')
+APP_DOMAIN_URL = os.environ.get('APP_DOMAIN_URL')
+ALLOWED_HOSTS = [HEROKU_HOSTING_URL, '127.0.0.1:8000', 'localhost', APP_DOMAIN_URL]
 
 
 # Application definition
@@ -110,14 +112,6 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -168,6 +162,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 CORS_ORIGIN_WHITELIST = [
     'https://localhost:3000',
+    'https://fitexsport1.herokuapp.com'
 ]
 
 ACCOUNT_EMAIL_VERIFICATION = 'none'
@@ -212,6 +207,19 @@ SOCIALACCOUNT_PROVIDERS = {
             'access_type': 'online',
         }
     }
+}
+
+DEFAULT_RENDERER_CLASSES = (
+    'rest_framework.renderers.JSONRenderer',
+)
+
+if DEBUG:
+    DEFAULT_RENDERER_CLASSES = DEFAULT_RENDERER_CLASSES + (
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    )
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': DEFAULT_RENDERER_CLASSES
 }
 
 django_heroku.settings(locals())
