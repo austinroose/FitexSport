@@ -122,6 +122,7 @@ class MainPageSearch extends React.Component{
             <ConfigProvider locale={locale}>
                 <DatePicker onChange={date => this.handleDateChange(date)} style={{borderRadius:'13px', marginRight: '5px', width: '200px'}} bordered={false}
                 placeholder="Kuupäev" size="large" suffixIcon='' defaultValue={moment(checkDate(this.props.filter.date), dateFormat)} format={dateFormat}
+                inputReadOnly={true}
                 />
             </ConfigProvider >
             <FilterSearchButton onCLick={this.handleSearchClick}/>
