@@ -161,7 +161,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 CORS_ORIGIN_WHITELIST = [
     'https://localhost:3000',
-    'https://fitexsport1.herokuapp.com'
+    'https://fitexsport1.herokuapp.com',
+    'https://fitex.ee'
 ]
 
 DEFAULT_RENDERER_CLASSES = (

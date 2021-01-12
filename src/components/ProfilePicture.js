@@ -41,7 +41,8 @@ class PictureUpload extends React.Component {
         let url = `/api/profile/${profileID}/update`
         axios.patch(url, form_data, {
             headers: {
-                'content-type': 'multipart/form-data'
+                'content-type': 'multipart/form-data',
+                'Authorization': profileID
             }
         })
             .then(res => console.log(res))
