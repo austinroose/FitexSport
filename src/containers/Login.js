@@ -182,7 +182,7 @@ class NormalLoginForm extends React.Component {
                           appId= "2725688447681904"
                           fields="name,email,picture"
                           scope="public_profile,email"
-                          autoLoad={true}
+                          autoLoad={false}
                           callback={this.responseFacebookLogin}
                           render={renderProps => (
                             <Button size='large' style={{backgroundColor:'#4267B2', color:'white', fontSize:'15px',
