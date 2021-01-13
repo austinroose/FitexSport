@@ -184,6 +184,7 @@ class NormalLoginForm extends React.Component {
                           scope="public_profile,email"
                           autoLoad={false}
                           callback={this.responseFacebookLogin}
+                          redirectUri="https://www.fitex.ee"
                           render={renderProps => (
                             <Button size='large' style={{backgroundColor:'#4267B2', color:'white', fontSize:'15px',
                             borderRadius:'6px', width: '200px'}}

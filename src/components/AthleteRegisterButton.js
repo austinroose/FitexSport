@@ -42,6 +42,22 @@ class AthleteRegisterFormButton extends React.Component {
             });
     }
 
+    componentDidUpdate(prevProps) {
+        if (prevProps !== this.props) {
+            const trainingID = this.props.trainingID;
+            axios.get(`/api/${trainingID}`)
+                .then(({data}) => {
+                    this.setState({
+                        training: data
+                    });
+                    this.getUsersProfile()
+                    this.checkRegister()
+                    this.checkIfRoomToRegister(data)
+                });
+        }
+        
+    }
+
     checkIfRoomToRegister(training) { // check for room in the trainings group
         const trainingID = training.id
         axios.get(`/api/eventregistrations/${trainingID}`)
