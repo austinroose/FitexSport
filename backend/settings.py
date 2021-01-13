@@ -83,7 +83,7 @@ SECURE_SSL_REDIRECT = True
 
 ROOT_URLCONF = 'backend.urls'
 
-SITE_ID = 1
+SITE_ID = 2
 
 TEMPLATES = [
     {
