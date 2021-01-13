@@ -64,7 +64,7 @@ class Profile extends React.Component {
                 <Row>
                     <Card
                         hoverable
-                        style={{ width: 240, borderRadius: '20px', marginBottom: '10px', marginRight: '20px' }}
+                        style={{ width: '270px', borderRadius: '20px', marginBottom: '10px', marginRight: '20px' }}
                         cover={<img alt={this.state.profile.image} src={this.state.profile.image} style={{ borderRadius: '20px'}}/>}
                     >
                         <Meta title={this.state.profile.name} description=<div><span>Spordiala: {this.state.profile.sport}</span><br></br>
