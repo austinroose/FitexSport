@@ -187,7 +187,7 @@ class NormalLoginForm extends React.Component {
                           redirectUri="https://www.fitex.ee"
                           render={renderProps => (
                             <Button size='large' style={{backgroundColor:'#4267B2', color:'white', fontSize:'15px',
-                            borderRadius:'6px', width: '200px'}}
+                            borderRadius:'7px', width: '200px'}}
                             onClick={renderProps.onClick} isDisabled={renderProps.isDisabled}
                             icon={<FaFacebookF style={{fontSize:'17px', marginRight:'8px'}}/>}>
                                 Facebook
