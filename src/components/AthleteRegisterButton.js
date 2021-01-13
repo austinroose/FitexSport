@@ -60,7 +60,8 @@ class AthleteRegisterFormButton extends React.Component {
 
     checkIfRoomToRegister(training) { // check for room in the trainings group
         const trainingID = training.id
-        axios.get(`/api/eventregistrations/${trainingID}`)
+        if (trainingID !== undefined) {
+            axios.get(`/api/eventregistrations/${trainingID}`)
             .then(res => {
                 if (res.data.length >= training.registration_limit) {
                     this.setState({isRoomToRegister: false})
@@ -68,6 +69,7 @@ class AthleteRegisterFormButton extends React.Component {
                     this.setState({isRoomToRegister: true})
                 }
             })
+        }
     }
 
     openSuccessfulCreateNotificationWithIcon = type => {
