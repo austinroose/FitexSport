@@ -78,6 +78,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+
 ROOT_URLCONF = 'backend.urls'
 
 SITE_ID = 1
@@ -162,7 +165,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 CORS_ORIGIN_WHITELIST = [
     'https://localhost:3000',
     'https://fitexsport1.herokuapp.com',
-    'https://fitex.ee'
+    'https://www.fitex.ee'
 ]
 
 DEFAULT_RENDERER_CLASSES = (
