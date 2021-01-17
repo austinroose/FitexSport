@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export default axios.create({
-    baseURL: 'https://www.fitex.ee',
+    baseURL: process.env.REACT_APP_AXIOS_BASE_URL,
 })

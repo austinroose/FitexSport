@@ -36,7 +36,7 @@ DEBUG = False
 
 HEROKU_HOSTING_URL = os.environ.get('HEROKU_HOSTING_URL')
 APP_DOMAIN_URL = os.environ.get('APP_DOMAIN_URL')
-ALLOWED_HOSTS = [HEROKU_HOSTING_URL, '127.0.0.1:8000', 'localhost', APP_DOMAIN_URL]
+ALLOWED_HOSTS = [HEROKU_HOSTING_URL, '127.0.0.1', 'localhost', APP_DOMAIN_URL]
 
 
 # Application definition
@@ -78,8 +78,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', os.environ['HTTP_X_FORWARDED_PROTO'])
+SECURE_SSL_REDIRECT = os.environ['SECURE_SSL_REDIRECT']
 
 ROOT_URLCONF = 'backend.urls'
 
@@ -164,8 +164,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 CORS_ORIGIN_WHITELIST = [
     'https://localhost:3000',
-    'https://fitexsport1.herokuapp.com',
-    'https://www.fitex.ee'
+    'http://localhost:3000',
+    'https://fitexsport1.herokuapp.com', # hide later
+    'https://www.fitex.ee' # hide later
 ]
 
 DEFAULT_RENDERER_CLASSES = (

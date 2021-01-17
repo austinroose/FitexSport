@@ -68,7 +68,9 @@ class AthleteRegisterFormButton extends React.Component {
                     console.log('check register DATA', res.data.length, training.registration_limit)
                 } else {
                     this.setState({isRoomToRegister: true})
+                    console.log('check register DATA2', res.data.length, training.registration_limit)
                 }
+                console.log('check register DATA3', res.data.length, training.registration_limit)
             })
         }
     }
