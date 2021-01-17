@@ -31,6 +31,7 @@ class AthleteRegisterFormButton extends React.Component {
 
     componentDidMount() {
         const trainingID = this.props.trainingID;
+        console.log('isRoom', this.state.isRoomToRegister)
         axios.get(`/api/${trainingID}`)
             .then(({data}) => {
                 this.setState({
