@@ -61,6 +61,7 @@ class AthleteRegisterFormButton extends React.Component {
 
     checkIfRoomToRegister(training) { // check for room in the trainings group
         const trainingID = training.id
+        console.log('isRoom2', this.state.isRoomToRegister)
         if (trainingID !== undefined) {
             axios.get(`/api/eventregistrations/${trainingID}`)
             .then(res => {
