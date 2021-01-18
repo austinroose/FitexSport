@@ -317,10 +317,10 @@ ul.social li{
             	<tr>
 			          <td style="text-align: left; margin-left: 4px">
 			          	<div class="text-author">
-				          	<h3 class="name">Treeningu pealkiri: {{trainingtitle}}, {{sport}}</h3>
-				          	<h3 class="name">Treeningu toimumise kuupäev ja kellaaeg: {{trainingsdate}}, {{training_starttime}} - {{training_endtime}}</h3>
+				          	<h3 class="name">Treeningu pealkiri: {{trainingtitle}}, {{sport}}</h3> <br>
+				          	<h3 class="name">Treeningu toimumise kuupäev ja kellaaeg: {{trainingsdate}}, {{training_starttime}} - {{training_endtime}}</h3> <br>
 				          	<span class="position">Registreerunu nimi: {{name}}</span> <br>
-				          	<span class="position">Registreerunu email: {{email}}</span>
+				          	<span class="position">Registreerunu email: {{email}}</span> <br>
 				          	<span class="position">Registreerumine tehtud: {{registrationtime}}</span>
 			           	</div>
 			          </td>

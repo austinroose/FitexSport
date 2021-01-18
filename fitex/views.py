@@ -107,8 +107,8 @@ def event_add_attendance(request, pk):
         data = json.loads(request.body)
         trainingtitle = data['trainingtitle']
         trainingdate = data['trainingdate']
-        training_starttime = data['trainind_start_time']
-        training_endtime = data['trainind_end_time']
+        training_starttime = data['training_start_time']
+        training_endtime = data['training_end_time']
         training_sport = data['training_sport']
         event_time = data['eventtime']
         event_date = data['eventdate']
@@ -139,7 +139,7 @@ def event_add_attendance(request, pk):
                 'sport': training_sport,
             },
         )
-        return redirect('/api/trainings/' + str(training.pk))
+        return HttpResponse(status=200)
 
 
 @csrf_exempt
