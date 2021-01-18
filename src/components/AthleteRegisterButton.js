@@ -19,14 +19,11 @@ class AthleteRegisterFormButton extends React.Component {
         this.state = {
             isregistered: false,
             disabled: false,
+            isRoomToRegister: true,
+            training: {},
+            usersname: '',
+            usersemail: '',
         }
-    }
-
-    state = {
-        training: {},
-        usersname: '',
-        usersemail: '',
-        isRoomToRegister: true,
     }
 
     componentDidMount() {
