@@ -16,13 +16,16 @@ class AthleteRegisterFormButton extends React.Component {
 
     constructor(props) {
         super(props);
+        this.checkIfRoomToRegister = this.checkIfRoomToRegister.bind(this);
+        this.getUsersProfile = this.getUsersProfile.bind(this);
+        this.checkRegister = this.checkRegister.bind(this);
         this.state = {
             isregistered: false,
             disabled: false,
             isRoomToRegister: true,
             training: {},
             usersname: '',
-            usersemail: '',
+            usersemail: ''
         }
     }
 
@@ -30,13 +33,13 @@ class AthleteRegisterFormButton extends React.Component {
         const trainingID = this.props.trainingID;
         console.log('isRoom', this.state.isRoomToRegister)
         axios.get(`/api/${trainingID}`)
-            .then(({data}) => {
+            .then((res) => {
                 this.setState({
-                    training: data
+                    training: res.data
                 });
                 this.getUsersProfile()
                 this.checkRegister()
-                this.checkIfRoomToRegister(data)
+                this.checkIfRoomToRegister(res.data.id, res.data.registration_limit)
             });
     }
 
@@ -44,32 +47,27 @@ class AthleteRegisterFormButton extends React.Component {
         if (prevProps !== this.props) {
             const trainingID = this.props.trainingID;
             axios.get(`/api/${trainingID}`)
-                .then(({data}) => {
+                .then((res) => {
                     this.setState({
-                        training: data
+                        training: res.data
                     });
                     this.getUsersProfile()
                     this.checkRegister()
-                    this.checkIfRoomToRegister(data)
+                    this.checkIfRoomToRegister(res.data.id, res.data.registration_limit)
                 });
         }
         
     }
 
-    checkIfRoomToRegister(training) { // check for room in the trainings group
-        const trainingID = training.id
-        console.log('isRoom2', this.state.isRoomToRegister)
-        if (trainingID !== undefined) {
+    checkIfRoomToRegister(trainingID, reg_limit) { // check for room in the trainings group
+        if (Number.isInteger(trainingID)) {
             axios.get(`/api/eventregistrations/${trainingID}`)
             .then(res => {
-                if (res.data.length >= training.registration_limit) {
+                if (res.data.length >= reg_limit) {
                     this.setState({isRoomToRegister: false})
-                    console.log('check register DATA', res.data.length, training.registration_limit)
                 } else {
                     this.setState({isRoomToRegister: true})
-                    console.log('check register DATA2', res.data.length, training.registration_limit)
                 }
-                console.log('check register DATA3', res.data.length, training.registration_limit)
             })
         }
     }
