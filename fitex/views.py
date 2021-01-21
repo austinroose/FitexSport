@@ -103,8 +103,10 @@ from rest_framework.permissions import IsAdminUser
 
 @csrf_exempt
 def event_add_attendance(request, pk):
+    print('request method', request.method)
     if request.method == "POST":
         data = json.loads(request.body)
+        print(data['pk'], data['profile'])
         trainingtitle = data['trainingtitle']
         trainingdate = data['trainingdate']
         training_starttime = data['training_start_time']
