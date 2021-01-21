@@ -19,6 +19,7 @@ class AthleteRegisterFormButton extends React.Component {
         this.checkIfRoomToRegister = this.checkIfRoomToRegister.bind(this);
         this.getUsersProfile = this.getUsersProfile.bind(this);
         this.checkRegister = this.checkRegister.bind(this);
+        this.handleRegistration = this.handleRegistration.bind(this);
         this.state = {
             isregistered: false,
             disabled: false,
@@ -134,6 +135,8 @@ class AthleteRegisterFormButton extends React.Component {
         const d = new Date()
         const registration_time = d.toLocaleString()
         const eventdate = this.state.training.stringdate
+        console.log('user REG DATA', this.props.token, this.props.trainingID)
+
         axios.defaults.headers = {
             "Content-Type": "application/json",
             Authorization: this.props.token
