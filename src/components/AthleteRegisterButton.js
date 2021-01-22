@@ -60,7 +60,7 @@ class AthleteRegisterFormButton extends React.Component {
         
     }
 
-    checkIfRoomToRegister(trainingID, reg_limit) { // check for room in the trainings group
+    checkIfRoomToRegister(trainingID, reg_limit) { // check for room in the trainings grou
         if (Number.isInteger(trainingID)) {
             axios.get(`/api/eventregistrations/${trainingID}`)
             .then(res => {
