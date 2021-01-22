@@ -120,11 +120,13 @@ class Post(models.Model):
         return EventRegistration.objects.filter(event=self)
 
     def add_user_to_list_of_attendees(self, profile, pk, event_time, event_date):
+        print('Paramid funktsiooni alguses' profile, pk,  event_time)
         registration = EventRegistration.objects.create(profile=profile,
                                                         event=self,
                                                         time_registered=timezone.now(),
                                                         event_time=event_time,
                                                         event_date=event_date)
+        print('registration object', registration)
         registration.save()
 
     def remove_user_from_list_of_attendees(self, user, pk):

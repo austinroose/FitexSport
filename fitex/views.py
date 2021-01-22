@@ -122,6 +122,7 @@ def event_add_attendance(request, pk):
         profile = Profile.objects.get(pk=profilePK)
         pk = data['pk']
         training = Post.objects.get(pk=pk)
+        print('Saadud treening', training)
         training.registrations_made = F('registrations_made') + 1
         training.save()
         training.add_user_to_list_of_attendees(profile=profile, pk=training.pk, event_time=event_time,
