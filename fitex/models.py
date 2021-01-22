@@ -120,7 +120,7 @@ class Post(models.Model):
         return EventRegistration.objects.filter(event=self)
 
     def add_user_to_list_of_attendees(self, profile, pk, event_time, event_date):
-        print('Paramid funktsiooni alguses' profile, pk,  event_time)
+        print('Paramid funktsiooni alguses', profile, pk,  event_time)
         registration = EventRegistration.objects.create(profile=profile,
                                                         event=self,
                                                         time_registered=timezone.now(),
