@@ -120,7 +120,7 @@ class AthleteRegisterFormButton extends React.Component {
        }
     }
 
-    handleRegistration = state => {
+    handleRegistration() {
         const trainingtitle = this.state.training.title;
         const organizeremail = this.state.training.organizeremail;
         const usersname = this.state.usersname;
