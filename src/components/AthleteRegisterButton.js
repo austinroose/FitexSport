@@ -77,7 +77,7 @@ class AthleteRegisterFormButton extends React.Component {
       notification[type]({
         message: 'Edukalt registreeritud!',
         description:
-          'Et oma registreerimisi näha, mine "Minu registreerimised" lehele. ',
+          'Et oma registreerimisi näha, mine "Minu registreerimised" lehele.',
       });
     };
 
