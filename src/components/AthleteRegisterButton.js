@@ -29,6 +29,15 @@ class AthleteRegisterFormButton extends React.Component {
             usersemail: ''
         }
     }
+    
+    state = {
+        isregistered: false,
+        disabled: false,
+        isRoomToRegister: true,
+        training: {},
+        usersname: '',
+        usersemail: ''
+    }
 
     componentDidMount() {
         const trainingID = this.props.trainingID;
@@ -41,6 +50,7 @@ class AthleteRegisterFormButton extends React.Component {
                 this.getUsersProfile()
                 this.checkRegister()
                 this.checkIfRoomToRegister(res.data.id, res.data.registration_limit)
+                console.log('res DATA componentDIDMount', res.data)
             });
     }
 
@@ -55,6 +65,7 @@ class AthleteRegisterFormButton extends React.Component {
                     this.getUsersProfile()
                     this.checkRegister()
                     this.checkIfRoomToRegister(res.data.id, res.data.registration_limit)
+                    console.log('res DATA componentDIDUpdate', res.data)
                 });
         }
         
