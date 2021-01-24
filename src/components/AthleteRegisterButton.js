@@ -120,7 +120,7 @@ class AthleteRegisterFormButton extends React.Component {
        }
     }
 
-    handleRegistration() {
+    handleRegistration = () => {
         const trainingtitle = this.state.training.title;
         const organizeremail = this.state.training.organizeremail;
         const usersname = this.state.usersname;
@@ -135,7 +135,7 @@ class AthleteRegisterFormButton extends React.Component {
         const d = new Date()
         const registration_time = d.toLocaleString()
         const eventdate = this.state.training.stringdate
-        console.log('user REG DATA', this.props.token, this.props.trainingID)
+        console.log('user REG DATA', this.props.token, this.props.trainingID, this.state.organizeremail)
 
         axios.defaults.headers = {
             "Content-Type": "application/json",
