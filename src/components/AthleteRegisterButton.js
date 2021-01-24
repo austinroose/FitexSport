@@ -42,7 +42,7 @@ class AthleteRegisterFormButton extends React.Component {
     componentDidMount() {
         const trainingID = this.props.trainingID;
         console.log('isRoom', this.state.isRoomToRegister)
-        axios.get(`/api/${trainingID}`)
+        axios.get(`/api/${trainingID}/`)
             .then((res) => {
                 this.setState({
                     training: res.data
@@ -57,7 +57,7 @@ class AthleteRegisterFormButton extends React.Component {
     componentDidUpdate(prevProps) {
         if (prevProps !== this.props) {
             const trainingID = this.props.trainingID;
-            axios.get(`/api/${trainingID}`)
+            axios.get(`/api/${trainingID}/`)
                 .then((res) => {
                     this.setState({
                         training: res.data
