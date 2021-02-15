@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Card, Button, Divider, Collapse, Tabs, Menu } from 'antd';
+import { Card, Button, Divider, Collapse, Tabs, Menu, Alert } from 'antd';
 import { connect } from 'react-redux';
 import axios from '../axios';
 import './Style.css';
@@ -162,13 +162,15 @@ function TrainingGroupLayout(props) {
                     }
                     {
                     isNotGroupMember ?
-                    <JoinGroupWidget requested={userHasRequestedAccess} groupID={groupData.id} userToken={props.token}/>
+                    <JoinGroupWidget requested={userHasRequestedAccess} groupID={groupData.id} userToken={props.token} />
                     :
                     <></>
                     }
                 </>
             :
-            <></>
+            <div>
+                <Alert message="Treeninggrupiga liitumiseks või detailide nägemiseks loo konto või logi sisse" type="info" showIcon />
+            </div>
             }
         </div>
     )

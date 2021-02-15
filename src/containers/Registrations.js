@@ -45,6 +45,7 @@ class UserRegistrations extends React.Component {
             const userID = this.props.token
             var d = new Date()
             var datetime = d.toISOString().split('T')[0]
+            console.log("datetime", datetime, d)
             var enddatetime = d.setDate(d.getDate() + 14); // fetch trainings up to 2 weeks from now
             var enddatetime2 = new Date(enddatetime)
             var enddatetime3 = enddatetime2.toISOString().split('T')[0]

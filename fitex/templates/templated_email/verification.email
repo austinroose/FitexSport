@@ -1,11 +1,15 @@
 {% block html %}
 
-  <p>Teie kood <b>{{username}}</b>i konto kinnitamiseks on:
-      <dl>
-        <dt>Kood:</dt><dd>{{token}}</dd>
-        <p>Kopeerige kood ja sisestage see lehel olevasse lahtrisse</p>
+  <p>Teie kood konto kinnitamiseks
+      <dl> 
+          <dt>Kasutajanimi:</dt>
+          <dd><b>{{username}}</b></dd>
+          <dt>Kood:</dt>
+          <dd><b>{{token}}</b></dd>
       </dl>
   </p>
 
-  <p>Teie fitex</p>
+  <p>Häid treeninguid!</p>
+  <p>Teie Fitex</p>
+
 {% endblock %}

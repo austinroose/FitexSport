@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Input, Button, Select, TimePicker, Row, DatePicker, ConfigProvider,
-        Typography, notification, InputNumber, Checkbox } from "antd";
+        Typography, notification, InputNumber, Checkbox, Card } from "antd";
 import {connect} from 'react-redux';
 import locale from 'antd/es/locale/et_EE';
 import 'moment/locale/et';
@@ -65,12 +65,14 @@ class CustomForm extends React.Component {
         notFilled: false,
         city: '',
         groupSizeInputDisabled: false,
-        checked: false,
+        checked_size: false,
         coachGroups: [],
         groupID: '',
         groupName: '',
         loadingGroups: false,
         shortDate: '',
+        sendRegistrationEmailsDisabled: false,
+        checked_email: false,
     }
 
     componentDidMount() {
@@ -92,6 +94,7 @@ class CustomForm extends React.Component {
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.onFailed = this.onFailed.bind(this);
         this.toggleGroupSizeInput = this.toggleGroupSizeInput.bind(this);
+        this.toggleSendRegistrationEmails = this.toggleSendRegistrationEmails.bind(this);
     }
 
     handleChange(name, value) {
@@ -122,7 +125,14 @@ class CustomForm extends React.Component {
     toggleGroupSizeInput = e => {
         this.setState({
             groupSizeInputDisabled: !this.state.groupSizeInputDisabled,
-            checked: e.target.checked
+            checked_size: e.target.checked
+        })
+    }
+
+    toggleSendRegistrationEmails = e => {
+        this.setState({
+            sendRegistrationEmailsDisabled: !this.state.sendRegistrationEmailsDisabled,
+            checked_email: e.target.checked
         })
     }
 
@@ -226,6 +236,7 @@ class CustomForm extends React.Component {
         var groupName = this.state.groupName
         var groupID = this.state.groupID
         var shortDate = this.state.shortDate
+        var sendEmails = true
         console.log('hind', price)
         if (price === undefined || price === '0.0' || price[0] === 0) {
             price = '0.0'
@@ -246,6 +257,9 @@ class CustomForm extends React.Component {
                 notFilled: false
             })
             var emptyFields = false;
+        }
+        if (this.state.sendRegistrationEmailsDisabled !== false) {
+            sendEmails = false
         }
 
         axios.defaults.headers = {
@@ -275,6 +289,7 @@ class CustomForm extends React.Component {
                         group: groupName,
                         group_id: groupID,
                         short_date: shortDate,
+                        send_registrations: sendEmails,
                     })
                     .then(res => {console.log(res); this.openSuccessfulCreateNotificationWithIcon('success')})
                     .catch(error => console.err(error));
@@ -312,136 +327,144 @@ class CustomForm extends React.Component {
     render() {
         return (
           <div>
-            <Form onFinish={(values) => this.handleFormSubmit(
-                values,
-                this.props.requestType,
-                this.props.trainingID)}
-                onFinishFailed={this.onFailed}
-                initialValues={{
-                    price: [0.0]
-                }}
-                style={{marginLeft: '5px'}}
-                >
-                {
-                this.state.notFilled ?
-                <span style={{color: 'red'}}>Kõik väljad peavad olema täidetud</span>
-                :
-                <></>
-                }
-              <FormItem label="Pealkiri"
-                        name ='title'
-                        className='createFormInput'>
-                <Input name="title" placeholder="..." style={{borderRadius:'15px'}}/>
-              </FormItem>
-              {this.props.update == undefined && //kui update, siis ei tohi olla linna valikut
-                <>
-                <FormItem label='Linn'
-                rules={[
-                  {
-                    required: true,
-                  },
-                ]}>
-                    <Select name="city" value={this.state.city} style={{ width: 120 }} onChange={value => this.handleChange("city", value)}>
-                        <Option value="Tartu" >Tartu</Option>
-                        <Option value="Tallinn" >Tallinn</Option>
-                        <Option value="Pärnu" >Pärnu</Option>
-                        <Option value="Viljandi" >Viljandi</Option>
-                        <Option value="Muu" >Muu</Option>
-                    </Select>
-                </ FormItem>
-                </>
-              }
-              <Text type="secondary">Asukoht saab olla piiratud arv tähemärke (30). Asutuse nimi/lühend või aadress.</Text>
-              <FormItem label='Asukoht:' name="location" className='createFormInput'>
-                <Input name="location" placeholder="..." maxLength={30} style={{borderRadius:'15px'}}/>
-              </FormItem>
-              <FormItem label="Kuupäev"
-                rules={[
-                  {
-                    required: true,
-                  },
-                ]}>
-                <ConfigProvider locale={locale}>
-                    <DatePicker onChange={date => this.handleDateChange(date)} style={{borderRadius:'15px'}}/>
-                </ConfigProvider>
-              </FormItem>
-              <FormItem label="Kellaaeg"
-              rules={[
-                  {
-                    required: true,
-                  },
-                ]}>
-                <ConfigProvider locale={locale}>
-                    <TimePicker placeholder="Algus" style={{borderRadius:'15px', marginRight:'15px'}} format={format}
-                    onChange={time => this.handleTimeChange(time)}/>
-                    <TimePicker placeholder="Lõpp" style={{borderRadius:'15px'}} format={format}
-                    onChange={time => this.handleEndTimeChange(time)}/>
-                </ConfigProvider>
-
-
-              </FormItem>
-              <FormItem label="Spordiala"
-              rules={[
-                  {
-                    required: true,
-                  },
-                ]}>
-                <Select name="sport" value={this.state.sport} style={{ width: 120 }} onChange={value => this.handleChange("sport", value)}>
-                    <Option value="jooks" >Jooks</Option>
-                    <Option value="jõud" >Jõud</Option>
-                    <Option value="crossfit" >Crossfit</Option>
-                    <Option value="kardio" >Kardio</Option>
-                    <Option value="spinning" >Spinning</Option>
-                    <Option value="yoga" >Yoga</Option>
-                    <Option value="ratas" >Ratas</Option>
-                    <Option value="ujumine" >Ujumine</Option>
-                    <Option value="tennis" >Tennis</Option>
-                    <Option value="suusatamine" >Suusatamine</Option>
-                    <Option value="muu" >Muu</Option>
-                </Select>
-              </FormItem>
-              <FormItem label="Kirjeldus" name='description' className='createFormInput'>
-                <TextArea name='description' placeholder='...' style={{borderRadius:'15px'}}
-                autoSize={{ minRows: 2, maxRows: 30 }} />
-              </FormItem>
-              <Text type="secondary">Kui treening on tasuta, jätke hinnaks 0.0</Text>
-              <FormItem name='price' label='Hind (€)'>
-                <InputNumber min={0.00} max={99.99} step={0.10} style={{borderRadius: '15px'}}/>
-              </FormItem>
-              {this.props.update == undefined && //kui update, siis ei tohi olla linna valikut
-                <>
-                <FormItem name='groupsize' label='Maksimaalne registreerunute arv:'>
-                    <InputNumber disabled={this.state.groupSizeInputDisabled} min={1} max={99} style={{borderRadius: '15px'}}/>
+              <Card className="trainingCreateForm" style={{borderRadius: "20px"}}>
+                <Form onFinish={(values) => this.handleFormSubmit(
+                    values,
+                    this.props.requestType,
+                    this.props.trainingID)}
+                    onFinishFailed={this.onFailed}
+                    initialValues={{
+                        price: [0.0]
+                    }}
+                    style={{marginLeft: '5px'}}
+                    >
+                    {
+                    this.state.notFilled ?
+                    <span style={{color: 'red'}}>Kõik väljad peavad olema täidetud</span>
+                    :
+                    <></>
+                    }
+                <FormItem label="Pealkiri"
+                            name ='title'
+                            className='createFormInput'>
+                    <Input name="title" placeholder="..." style={{borderRadius:'15px'}}/>
                 </FormItem>
-                <Checkbox onChange={this.toggleGroupSizeInput} checked={this.state.checked} style={{marginBottom:'12px'}}> Registreerunute arv pole piiratud</Checkbox>
-                </>
-              }
-              <br />
-              <Text type="secondary">Määrake, millisesse gruppi soovite treeningu lisada. Avalik treening on nähtav kõigile. Uusi gruppe saab luua oma paneeli alt.</Text>
-                <FormItem label='Treeninggrupp'>
-                    <Select name="group" style={{ width: 120 }} onChange={value => this.handleGroupChange(value)}>
-                        <Option value="public" >Avalik</Option>
-                        {this.state.coachGroups && this.state.coachGroups.map(item => {
-                            return <Option value={item} key={item}>{item}</Option>;
-                        })}
-                    </Select>
-              </FormItem>
-              <br />
-              <span>Teavitused registreerimiste kohta saabuvad Teie emailile: </span><br/>
-              <span><b>{this.state.organizeremail}</b></span>
-              <FormItem>
-                {
-                 this.state.loadingGroups ?
-                 <Button type="primary" shape="round" size="large" style={{marginTop:'20px'}} disabled>
-                  Laen gruppe
-                 </Button>
-                 :
-                 <Button type="primary" htmlType="submit" shape="round" size="large" style={{marginTop:'20px'}}>
-                  {this.props.btnText}
-                 </Button>
+                {this.props.update == undefined && //kui update, siis ei tohi olla linna valikut
+                    <>
+                    <FormItem label='Linn'
+                    rules={[
+                    {
+                        required: true,
+                    },
+                    ]}>
+                        <Select name="city" value={this.state.city} style={{ width: 120 }} onChange={value => this.handleChange("city", value)}>
+                            <Option value="Tartu" >Tartu</Option>
+                            <Option value="Tallinn" >Tallinn</Option>
+                            <Option value="Pärnu" >Pärnu</Option>
+                            <Option value="Viljandi" >Viljandi</Option>
+                            <Option value="Muu" >Muu</Option>
+                        </Select>
+                    </ FormItem>
+                    </>
                 }
-              </FormItem>
-            </Form>
+                <Text type="secondary">Asukoht saab olla piiratud arv tähemärke (30). Asutuse nimi/lühend või aadress.</Text>
+                <FormItem label='Asukoht:' name="location" className='createFormInput'>
+                    <Input name="location" placeholder="..." maxLength={30} style={{borderRadius:'15px'}}/>
+                </FormItem>
+                <FormItem label="Kuupäev"
+                    rules={[
+                    {
+                        required: true,
+                    },
+                    ]}>
+                    <ConfigProvider locale={locale}>
+                        <DatePicker onChange={date => this.handleDateChange(date)} style={{borderRadius:'15px'}}/>
+                    </ConfigProvider>
+                </FormItem>
+                <FormItem label="Kellaaeg"
+                rules={[
+                    {
+                        required: true,
+                    },
+                    ]}>
+                    <ConfigProvider locale={locale}>
+                        <TimePicker placeholder="Algus" style={{borderRadius:'15px', marginRight:'15px'}} format={format}
+                        onChange={time => this.handleTimeChange(time)}/>
+                        <TimePicker placeholder="Lõpp" style={{borderRadius:'15px'}} format={format}
+                        onChange={time => this.handleEndTimeChange(time)}/>
+                    </ConfigProvider>
+
+
+                </FormItem>
+                <FormItem label="Spordiala"
+                rules={[
+                    {
+                        required: true,
+                    },
+                    ]}>
+                    <Select name="sport" value={this.state.sport} style={{ width: 120 }} onChange={value => this.handleChange("sport", value)}>
+                        <Option value="jooks" >Jooks</Option>
+                        <Option value="jõud" >Jõud</Option>
+                        <Option value="crossfit" >Crossfit</Option>
+                        <Option value="kardio" >Kardio</Option>
+                        <Option value="spinning" >Spinning</Option>
+                        <Option value="yoga" >Yoga</Option>
+                        <Option value="ratas" >Ratas</Option>
+                        <Option value="ujumine" >Ujumine</Option>
+                        <Option value="tennis" >Tennis</Option>
+                        <Option value="suusatamine" >Suusatamine</Option>
+                        <Option value="muu" >Muu</Option>
+                    </Select>
+                </FormItem>
+                <FormItem label="Kirjeldus" name='description' className='createFormInput'>
+                    <TextArea name='description' placeholder='...' style={{borderRadius:'15px'}}
+                    autoSize={{ minRows: 2, maxRows: 30 }} />
+                </FormItem>
+                <Text type="secondary">Kui treening on tasuta, jätke hinnaks 0.0</Text>
+                <FormItem name='price' label='Hind (€)'>
+                    <InputNumber min={0.00} max={99.99} step={0.10} style={{borderRadius: '15px'}}/>
+                </FormItem>
+                {this.props.update == undefined && //kui update, siis ei tohi olla maksimaalse registreerunute võimalust
+                    <>
+                    <FormItem name='groupsize' label='Maksimaalne registreerunute arv:'>
+                        <InputNumber disabled={this.state.groupSizeInputDisabled} min={1} max={99} style={{borderRadius: '15px'}}/>
+                    </FormItem>
+                    <Checkbox onChange={this.toggleGroupSizeInput} checked={this.state.checked_size} style={{marginBottom:'12px'}}> Registreerunute arv pole piiratud</Checkbox>
+                    </>
+                }
+                <br />
+                <Text type="secondary">Määrake, millisesse gruppi soovite treeningu lisada. Avalik treening on nähtav kõigile. Uusi gruppe saab luua oma paneeli alt.</Text>
+                    <FormItem label='Treeninggrupp'>
+                        <Select name="group" style={{ width: 120 }} onChange={value => this.handleGroupChange(value)}>
+                            <Option value="public" >Avalik</Option>
+                            {this.state.coachGroups && this.state.coachGroups.map(item => {
+                                return <Option value={item} key={item}>{item}</Option>;
+                            })}
+                        </Select>
+                </FormItem>
+                <br />
+                <span>Teavitused registreerimiste kohta saabuvad Teie emailile: </span><br/>
+                <span><b>{this.state.organizeremail}</b></span>
+                {this.props.update == undefined &&
+                <FormItem style={{marginTop: "10px"}}>
+                    <Checkbox onChange={this.toggleSendRegistrationEmails} checked={this.state.checked_email} style={{marginBottom:'12px'}}>Ei soovi registreerumiste teavitusi oma emailile</Checkbox>
+                </FormItem>
+                }
+                <FormItem>
+                    {
+                    this.state.loadingGroups ?
+                    <Button type="primary" shape="round" size="large" style={{marginTop:'20px'}} disabled>
+                    Laen gruppe
+                    </Button>
+                    :
+                    <Button type="primary" htmlType="submit" shape="round" size="large" style={{marginTop:'20px'}}>
+                    {this.props.btnText}
+                    </Button>
+                    }
+                </FormItem>
+                </Form>      
+              </Card>
+            
           </div>
         );
     }

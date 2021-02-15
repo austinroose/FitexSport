@@ -4,6 +4,7 @@ import Filter from '../components/Filtering';
 import HomeFilter from '../components/HomeFiltering';
 import { connect } from 'react-redux';
 import * as actions from '../store/actions/filter';
+import helloButton from '../components/Test'
 
 class Home extends React.Component{
 
@@ -17,14 +18,13 @@ class Home extends React.Component{
             <section className='homeSearchBar'>
                 <HomeFilter/>
             </section>
-            <div style={{backgroundImage: "url(" + "https://runningmagazine.ca/wp-content/uploads/2013/07/93367000-e1562602779929.jpg" + ")",
-                                    backgroundPosition: 'center',
+            <div style={{backgroundImage: "url(" + "https://www.chicagomag.com/wp-content/archive/Chicago-Magazine/January-2016/Winter-Travel-Skate-Ski-in-a-Hilly-Forest/C201601-Winter-Travel-Skate-Ski.jpg" + ")",
+                                    backgroundPosition: '40% 30%',
                                       backgroundSize: 'cover',
                                       backgroundRepeat: 'no-repeat', borderRadius: '30px', width:'100%', height:'700px'}}>
                 <h1 className='homeTitle'>Sinu Treening</h1>
 
             </div>
-
             </div>
         )
     }

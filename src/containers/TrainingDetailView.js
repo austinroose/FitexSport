@@ -8,6 +8,7 @@ import { TiLocationArrowOutline } from "react-icons/ti";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { BiInfoCircle, BiBuildingHouse } from "react-icons/bi";
 import { AiOutlineEuro } from 'react-icons/ai';
+import DescriptionFormatter from '../utilities/TrainingDescriptionFormatter';
 
 import { Button, Card, Popconfirm, Alert, Collapse, Divider, Typography, Spin } from 'antd';
 
@@ -15,6 +16,7 @@ import CustomForm from '../components/Form';
 import RegisterForm from '../components/Register';
 import AthleteRegisterFormButton from '../components/AthleteRegisterButton';
 import RegisteredUsers from '../components/RegisteredUsersGroup';
+import RegisteredUsersList from '../components/RegisteredUsersList';
 
 const { Panel } = Collapse;
 
@@ -44,13 +46,14 @@ class TrainingDetail extends React.Component {
         isCreator: false,
         loggedin: true,
         ifUserHasPerms: false,
-        loading: true
+        userRegistered: false,
+        loading: true,
+        typeGroupTraining: false,
     }
 
     UNSAFE_componentWillReceiveProps(newProps) {
     console.log(newProps);
         if (newProps.token) {
-            console.log('Start')
             axios.defaults.headers = {
                 "Content-Type": "application/json",
                 Authorization: newProps.token
@@ -68,7 +71,13 @@ class TrainingDetail extends React.Component {
                             loading: false
                         })
                     } else {
-                        this.checkIfUserHasPerm(res.data.group_id)
+                        if (res.data.group_id !== 0) {
+                            this.checkIfUserHasPerm(res.data.group_id)
+                            this.setState({typeGroupTraining: true})
+                        } else {
+                            this.setState({ifUserHasPerms: true, loading: false})
+                        }
+                        this.checkIfUserRegistered(res.data.id)
                     }
                 })
                 .catch(err => {console.log(err)})
@@ -115,27 +124,37 @@ class TrainingDetail extends React.Component {
     }
 
     checkIfUserHasPerm(groupID) {
-        if (groupID !== 0) {
-            var userToken = this.props.token
-            var userGroups = []
-            axios.get(`api/profile/${userToken}`)
-                .then(res => {
-                    userGroups = res.data.groups
-                    if (userGroups.includes(groupID) === true) {
-                        console.log('user on grupis')
-                        this.setState({ifUserHasPerms: true, loading: false})
-                    } else {
-                        this.setState({ifUserHasPerms: false, loading: false})
-                    }
-                    console.log('Stopp')
-                })
-                .catch(err => {
-                    console.error('Andmete laadimisel ilmnes tõrge', err)
-                    alert('Andmete laadimisel ilmnes tõrge')
-                })
-        } else {
-            this.setState({ifUserHasPerms: true, loading: false})
-        }
+        var userToken = this.props.token
+        var userGroups = []
+        axios.get(`api/profile/${userToken}`)
+            .then(res => {
+                userGroups = res.data.groups
+                if (userGroups.includes(groupID) === true) {
+                    this.setState({ifUserHasPerms: true, loading: false})
+                } else {
+                    this.setState({ifUserHasPerms: false, loading: false})
+                }
+            })
+            .catch(err => {
+                console.error('Andmete laadimisel ilmnes tõrge', err)
+                alert('Andmete laadimisel ilmnes tõrge')
+            })
+    }
+
+    checkIfUserRegistered(id) { // to check if user is registered to training and only then show list of other registered users
+        axios.get(`/api/eventregistrations/${id}`)
+            .then(res => {
+                const data = res.data
+                var user_ids = []
+                data.forEach(registration => {
+                    user_ids.push(registration.profile)
+                });
+                const if_registered = user_ids.includes(this.props.token)
+                if (if_registered) {
+                    this.setState({userRegistered:true})
+                }
+            })
+            .catch(err => console.error('Error', err))
     }
 
 
@@ -147,6 +166,7 @@ class TrainingDetail extends React.Component {
         const groupSizeColor = this.setGroupSizeColor(this.state.training.registrations_made, this.state.training.registration_limit)
         const ifGroupTrainingAndUserHasPermission = this.state.ifUserHasPerms
         const loading = this.state.loading
+        const userIsRegistered = this.state.userRegistered
         return (
             <div>
                         {
@@ -161,7 +181,7 @@ class TrainingDetail extends React.Component {
                                     <Meta title={<div style={{display: 'flex', flexDirection: 'column'}}><span style={{fontSize: '20px'}}>{this.state.training.title}</span>
                                     <span style={{fontSize: '15px', fontWeight: 'light'}}>{this.state.training.sport}</span></div>} />
                                     <Divider />
-                                    <Paragraph style={{marginBottom: '50px'}}>{this.state.training.content}</Paragraph>
+                                    <DescriptionFormatter description={this.state.training.content}/>
                                     <div style={{display: 'flex'}}>
                                         <UserOutlined style={{fontSize: "15px", marginRight: '7px'}}/><p> {this.state.training.organizername} </p>
                                     </div>
@@ -192,8 +212,20 @@ class TrainingDetail extends React.Component {
                                     <div style={{display: 'flex', marginTop:'-5px'}}>
                                         <TeamOutlined style={{fontSize: "20px", marginRight: '7px'}}/><p style={{ color: groupSizeColor }}> {this.state.training.registrations_made}/{groupSize}</p>
                                     </div>
-                                    <RegisteredUsers trainingID={this.state.training.id}/>
                                 </Card>
+                                    <>
+                                        {this.state.typeGroupTraining ?
+                                            <RegisteredUsersList trainingID={this.props.match.params.trainingID} style={{marginTop:"20px"}}/>
+                                            :
+                                            <>
+                                            {userIsRegistered &&
+                                                <RegisteredUsersList trainingID={this.props.match.params.trainingID} style={{paddingTop:"20px"}} />
+                                            }
+                                            </>
+                                        } 
+                                    </>
+                                <AthleteRegisterFormButton
+                                    trainingID={this.props.match.params.trainingID} />
                             </div>
                             :
                             <>
@@ -210,6 +242,7 @@ class TrainingDetail extends React.Component {
                         {
                          isCreator ?
                          <>
+                            <RegisteredUsersList trainingID={this.props.match.params.trainingID} />
                             <Collapse defaultActiveKey={['2']} onChange={callback} style={{borderRadius:'15px', marginTop:'20px'}}>
                                 <Panel header="Uuendage treeningu andmeid" key="1">
                                      <CustomForm
@@ -232,8 +265,6 @@ class TrainingDetail extends React.Component {
                          </>
                          :
                          <>
-                         <AthleteRegisterFormButton
-                               trainingID={this.props.match.params.trainingID} />
                          </>
                         }
 
@@ -250,3 +281,5 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps)(TrainingDetail);
+
+// <RegisteredUsers trainingID={this.state.training.id}/>

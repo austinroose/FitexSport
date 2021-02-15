@@ -24,6 +24,9 @@ from django.http import HttpResponse
 from django.core.mail import send_mail
 from inspect import getmembers
 from pprint import pprint
+import string
+import random
+import uuid
 
 from django.contrib.auth.models import User
 
@@ -127,21 +130,23 @@ def event_add_attendance(request, pk):
         training.save()
         training.add_user_to_list_of_attendees(profile=profile, pk=training.pk, event_time=event_time,
                                                event_date=event_date)
-        send_templated_mail(
-            template_name='welcome',
-            from_email='fitexsport.info@gmail.com',
-            recipient_list=[organizeremail],
-            context={
-                'email': email,
-                'name': name,
-                'trainingtitle': trainingtitle,
-                'trainingsdate': trainingdate,
-                'training_starttime': training_starttime,
-                'training_endtime': training_endtime,
-                'registrationtime': registration_time,
-                'sport': training_sport,
-            },
-        )
+        if_send_email = training.send_registrations
+        if if_send_email:
+            send_templated_mail(
+                template_name='welcome',
+                from_email='fitexsport.info@gmail.com',
+                recipient_list=[organizeremail],
+                context={
+                    'email': email,
+                    'name': name,
+                    'trainingtitle': trainingtitle,
+                    'trainingsdate': trainingdate,
+                    'training_starttime': training_starttime,
+                    'training_endtime': training_endtime,
+                    'registrationtime': registration_time,
+                    'sport': training_sport,
+                },
+            )
         return HttpResponse(status=200)
 
 
@@ -259,6 +264,7 @@ class ProfileView(generics.RetrieveAPIView):
     lookup_field = 'token'
     lookup_url_kwarg = 'pk'
 
+# view to check if user has account assigned to that certain email
 
 class ProfileViewByEmail(generics.RetrieveAPIView):
     queryset = Profile.objects.all()
@@ -338,6 +344,47 @@ class EventRegistrationsListView(generics.ListAPIView):
     filterset_fields = {'event_date': ['gte', 'lte']}
 
 
+# if user registers via email, send verification token to their email
+@csrf_exempt
+def generate_and_send_verification_token(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        email = data['email']
+        userName = data['username']
+        def token_generator(string_length=7):
+            """Returns a random string of length string_length."""
+            random = str(uuid.uuid4()) # Convert UUID format to a Python string.
+            random = random.upper() # Make all characters uppercase.
+            random = random.replace("-","") # Remove the UUID '-'.
+            return random[0:string_length] # Return the random string.
+        user_token = token_generator()
+        print('userToken', user_token)
+        VerificationKey.objects.create(useremail=email, token=user_token)
+        send_templated_mail(
+            template_name='verification',
+            from_email='fitexsport.info@gmail.com',
+            recipient_list=[email],
+            context={
+                'token': user_token,
+                'username': userName,
+            },
+        )
+        return HttpResponse(status=200)
+
+# chechk if user has entered correct verification key for verifying their email
+@csrf_exempt
+def check_user_verification_key(request, pk):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        userEmail = pk
+        key = data['key']
+        user_profile = VerificationKey.objects.get(useremail=userEmail)
+        user_key = user_profile.token
+        if key == user_key:
+            return HttpResponse(status=200)
+        else:
+            return HttpResponse(status=403)
+
 class VerificationKeyCreateView(generics.CreateAPIView):
     queryset = VerificationKey.objects.all()
     serializer_class = VerificationKeySerializer
@@ -362,14 +409,14 @@ class VerificationKeyRetrieveByToken(generics.RetrieveAPIView):
 class VerificationKeyUpdate(generics.UpdateAPIView):
     queryset = VerificationKey.objects.all()
     serializer_class = VerificationKeySerializer
-    lookup_field = 'token'
+    lookup_field = 'useremail'
     lookup_url_kwarg = 'pk'
 
 
 class VerificationKeyDelete(generics.DestroyAPIView):
     queryset = VerificationKey.objects.all()
     serializer_class = VerificationKeySerializer
-    lookup_field = 'useremail'
+    lookup_field = 'token'
     lookup_url_kwarg = 'pk'
 
 

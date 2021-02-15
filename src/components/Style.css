@@ -144,8 +144,6 @@
     align-items: row;
 }
 
-/*Training group banner */
-
 /* Training group request container for coach */
 .trainingGroupRequestsBox {
     width: 100%;
@@ -181,17 +179,15 @@
     margin-top: 3px;
 }
 
-/* Training group request container for coach */
-
 /* Group members list container */
 
 .groupMembersListContainer {
     border: 1px solid #e8e8e8;
-    border-radius: 10px;
+    border-radius: 20px;
     overflow: auto;
     padding: 8px 24px;
-    height: 200px
-
+    height: 200px;
+    background-color: white;
 }
 
 .groupMembersListLoading {
@@ -201,7 +197,12 @@
     text-align: center;
 }
 
-/* Group members list container */
+/* Training create form */
+
+.trainingCreateForm {
+    border-radius: 20px;
+    width: 600px;
+}
 
 
 @media only screen and (max-width: 550px) {
@@ -270,6 +271,11 @@
 
     .trainingDetailButton {
         display: none;
+    }
+
+    .trainingCreateForm {
+        border-radius: 20px;
+        width: 100%;
     }
 }
 

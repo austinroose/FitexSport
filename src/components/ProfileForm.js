@@ -10,7 +10,7 @@ const FormItem = Form.Item;
 const { Option } = Select;
 
 const success = () => {
-  message.success('Teie profiil on salvestatud edukalt, võite lehte uuendada');
+  window.location.reload();
 };
 
 class ProfileForm extends React.Component {

@@ -7,7 +7,8 @@ import './Style.css';
 import { Drawer, Button, Pagination } from 'antd';
 import * as actions from '../store/actions/filter';
 import MainPageSearch from '../components/MainPageSearching';
-import {Helmet} from 'react-helmet'
+import {Helmet} from 'react-helmet';
+import helloButton from '../components/Test.jsx';
 
 var qs = require('qs');
 
@@ -201,6 +202,7 @@ class SearchTrainingList extends React.Component {
                           >
                             <MainPageSearch />
                         </Drawer>
+                        <helloButton></helloButton>
                     </div>
                  );
     }

@@ -103,6 +103,7 @@ class MainPageSearch extends React.Component{
               <Option value='none'>Kõik</Option>
               <Option value="jooks">Jooks</Option>
               <Option value="jõud">Jõud</Option>
+              <Option value="suusatamine">Suusatamine</Option>
               <Option value="crossfit">CrossFit</Option>
               <Option value="kardio">Kardio</Option>
               <Option value="spinning">Spinning</Option>

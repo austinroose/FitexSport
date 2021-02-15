@@ -32,6 +32,8 @@ urlpatterns = [
     path('add_user/<pk>', views.event_add_attendance, name='add-user'),
     path('send_account_verification/<pk>', views.send_verification_email, name='send-verif-email'),
     path('verificationkey/create', VerificationKeyCreateView.as_view()),
+    path('verificationkey1/create', views.generate_and_send_verification_token),
+    path('verificationkey/check/<pk>', views.check_user_verification_key),
     path('verificationkey/get/<pk>', VerificationKeyRetrieve.as_view()),
     path('verificationkey/update/<pk>', VerificationKeyUpdate.as_view()),
     path('verificationkeybytoken/get/<pk>', VerificationKeyRetrieveByToken.as_view()),

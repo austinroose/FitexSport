@@ -12,7 +12,7 @@ const { Panel } = Collapse;
 const FormItem = Form.Item;
 
 const success = () => {
-  message.success('Teie profiilipilt on salvestatud edukalt, võite lehte uuendada');
+    window.location.reload();
 };
 
 function callback(key) {

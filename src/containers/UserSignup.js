@@ -1,16 +1,14 @@
 import React from 'react';
-import { Card, Form, Button, Input, Popover } from 'antd';
+import { Form, Button, Input, Popover } from 'antd';
 import axios from '../axios';
-import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
-import { LoadingOutlined, UserOutlined, LockOutlined, MailOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
-import { NavLink } from 'react-router-dom';
+import { UserOutlined, LockOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import * as actions from '../store/actions/auth';
 
 class UserSignupForm extends React.Component {
 
     state = {
-        useremail: {},
+        useremail: null,
         info: false
     }
 
@@ -27,10 +25,9 @@ class UserSignupForm extends React.Component {
 
     componentDidMount() {
         const usertoken = this.props.match.params.token
-        console.log('usertoken', usertoken)
         axios.get(`/api/verificationkeybytoken/get/${usertoken}`)
             .then(res => {
-                if (res.data.verified == true && res.data.finished != true) {
+                if (res.data.verified === true && res.data.finished !== true) {
                     this.setState({
                         useremail: res.data.useremail,
                         info: true,
@@ -41,7 +38,7 @@ class UserSignupForm extends React.Component {
                     })
                 }
             })
-            .catch(error => {
+            .catch((err) => {
                 this.setState({
                         info: false
                 })
@@ -54,12 +51,14 @@ class UserSignupForm extends React.Component {
             axios.patch(`/api/verificationkey/update/${usertoken}`, {
                 finished: true
             })
+            axios.delete(`/api/verificationkey/delete/${usertoken}`)
         }
         else{}
     }
 
     render(){
-        return(<div>
+        return(
+        <div>
         {
          this.state.info ?
          <div>

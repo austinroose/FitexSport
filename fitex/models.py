@@ -94,6 +94,7 @@ class Post(models.Model):
     group = models.CharField('Grupi nimi', max_length=20, default='avalik')
     group_id = models.IntegerField('Grupi id', default=0)
     short_date = models.CharField('Paev/kuu, short date', max_length=15, default='')
+    send_registrations = models.BooleanField(default=True)
 
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk': self.pk})

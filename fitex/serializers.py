@@ -16,7 +16,7 @@ class TrainingSerializer(serializers.ModelSerializer):
         model = Post
         fields = ('title', 'content', 'id', 'organizeremail', 'sport', 'location', 'coach', 'starts', 'starts1',
                   'ends1', 'date', 'stringdate', 'city', 'stringtime', 'stringtime2', 'organizername', 'price',
-                  'registration_limit', 'registrations_made', 'group', 'group_id', 'short_date')
+                  'registration_limit', 'registrations_made', 'group', 'group_id', 'short_date', 'send_registrations')
 
 
 class EventRegistrationSerializer(serializers.ModelSerializer):
