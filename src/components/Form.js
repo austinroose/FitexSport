@@ -236,7 +236,7 @@ class CustomForm extends React.Component {
         var groupName = this.state.groupName
         var groupID = this.state.groupID
         var shortDate = this.state.shortDate
-        var sendEmails = true
+        var sendEmails = !this.state.sendRegistrationEmailsDisabled
         console.log('hind', price)
         if (price === undefined || price === '0.0' || price[0] === 0) {
             price = '0.0'
@@ -257,9 +257,6 @@ class CustomForm extends React.Component {
                 notFilled: false
             })
             var emptyFields = false;
-        }
-        if (this.state.sendRegistrationEmailsDisabled !== false) {
-            sendEmails = false
         }
 
         axios.defaults.headers = {
