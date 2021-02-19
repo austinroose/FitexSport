@@ -215,11 +215,11 @@ class TrainingDetail extends React.Component {
                                 </Card>
                                     <>
                                         {this.state.typeGroupTraining ?
-                                            <RegisteredUsersList trainingID={this.props.match.params.trainingID} style={{marginTop:"20px"}}/>
+                                            <RegisteredUsersList trainingID={this.props.match.params.trainingID} style={{marginTop:"20px"}} coach={false}/>
                                             :
                                             <>
                                             {userIsRegistered &&
-                                                <RegisteredUsersList trainingID={this.props.match.params.trainingID} style={{paddingTop:"20px"}} />
+                                                <RegisteredUsersList trainingID={this.props.match.params.trainingID} style={{paddingTop:"20px"}} coach={false}/>
                                             }
                                             </>
                                         } 
@@ -242,7 +242,7 @@ class TrainingDetail extends React.Component {
                         {
                          isCreator ?
                          <>
-                            <RegisteredUsersList trainingID={this.props.match.params.trainingID} />
+                            <RegisteredUsersList trainingID={this.props.match.params.trainingID} coach={true}/>
                             <Collapse defaultActiveKey={['2']} onChange={callback} style={{borderRadius:'15px', marginTop:'20px'}}>
                                 <Panel header="Uuendage treeningu andmeid" key="1">
                                      <CustomForm
@@ -277,6 +277,7 @@ const mapStateToProps = state => {
     return {
         token: state.auth.token,
         isAuthenticated: state.auth.token !== null,
+        isCoach: state.auth.iscoach === true,
     }
 }
 

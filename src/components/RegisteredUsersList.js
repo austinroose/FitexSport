@@ -42,6 +42,7 @@ function RegisteredUsersList(props) {
     }
 
     useEffect(() => {
+        console.log('coach', props.coach)
         async function getRegisteredUsers() {
             const trainingID = props.trainingID
             const result = await axios.get(`/api/eventregistrations/${trainingID}`).catch(err => alert('Ilmnes tõrge serveriga'))
@@ -92,7 +93,12 @@ function RegisteredUsersList(props) {
                                         <Avatar src={item.image} />
                                     }
                                     title={item.name}
-                                    description={item.email}
+                                    description={
+                                        <div>
+                                            {props.coach &&
+                                                <p>{item.email}</p>
+                                            }
+                                        </div>}
                                     />
                             </List.Item>
                             )}
