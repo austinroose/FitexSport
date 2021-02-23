@@ -36,6 +36,8 @@ DEBUG = False
 
 HEROKU_HOSTING_URL = os.environ.get('HEROKU_HOSTING_URL')
 APP_DOMAIN_URL = os.environ.get('APP_DOMAIN_URL')
+CORS_DOMAIN_A = os.environ.get('CORS_APP_DOMAIN_A')
+CORS_DOMAIN_B = os.environ.get('CORS_APP_DOMAIN_B')
 ALLOWED_HOSTS = [HEROKU_HOSTING_URL, APP_DOMAIN_URL]
 
 
@@ -163,8 +165,8 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 CORS_ORIGIN_WHITELIST = [
-    'https://fitexsport1.herokuapp.com', # hide later
-    'https://www.fitex.ee' # hide later
+    CORS_DOMAIN_A, # hide later
+    CORS_DOMAIN_B # hide later
 ]
 
 REST_FRAMEWORK = {

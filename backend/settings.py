@@ -24,7 +24,10 @@ dotenv_file = os.path.join(BASE_DIR, ".env")
 if os.path.isfile(dotenv_file):
     dotenv.load_dotenv(dotenv_file)
 
-
+HEROKU_HOSTING_URL = os.environ.get('HEROKU_HOSTING_URL')
+APP_DOMAIN_URL = os.environ.get('APP_DOMAIN_URL')
+CORS_DOMAIN_A = os.environ.get('CORS_APP_DOMAIN_A')
+CORS_DOMAIN_B = os.environ.get('CORS_APP_DOMAIN_B')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -165,8 +168,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 CORS_ORIGIN_WHITELIST = [
     'https://localhost:3000',
     'http://localhost:3000',
-    'https://fitexsport1.herokuapp.com', # hide later
-    'https://www.fitex.ee' # hide later
+    CORS_DOMAIN_A, # hide later
+    CORS_DOMAIN_B # hide later
 ]
 
 DEFAULT_RENDERER_CLASSES = (
